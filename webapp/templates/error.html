@@ -1,0 +1,14 @@
+<html lang="it">
+
+<head>
+  {% include 'head.html' %}
+</head>
+
+<body>
+  <div>
+    <h2>Accidenti!</h2>
+    <h1>Errore {{ error.code }}</h1>
+    <p>{{ error.description }}</p>
+    <a href="{{ url_for('main.index') }}">Torna alla Homepage</a>
+  </div>
+</body>

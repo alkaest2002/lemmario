@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+<div class="container">
+    <h2><img src="{{ url_for('static', filename='img/book.svg') }}"
+      style="position:relative;top:5px;height:32px;margin-right:8px;" />LEMMARIO 
+    </h2>
+    <p>L'accesso al repositorio dei lemmi è riservato.<br>Usa le tue
+    credenziali per entrare nel sito.
+    </p>
+    <br>
+    <form method="post" novalidate>
+      {{ form.username }}
+      {{ form.password }}
+      {{ form.csrf_token }}     
+      <button type="submit">Login</button>
+    </form>
+    <footer>
+      <div>
+        2020-{{ current_year }}, Tutti i diritti riservati. Progetto
+          realizzato da Pierpaolo Calanna.<br>
+          <a href="https://www.linkedin.com/in/pierpaolo-calanna-349a249b" target="_blank">Linkedin</a> | 
+          <a href="mailto:p.calanna@gmail.com">Email</a>
+      </div>
+    </footer>
+</div>
+{% endblock %}

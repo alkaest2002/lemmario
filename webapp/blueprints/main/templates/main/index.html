@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  <h3>Elenco dei lemmi ({{ data.words_n_all }})</h3>
+  <div id="letters" style="margin-bottom:50px;">
+    <p>Filtra lemmi per lettera ({{ data.words_n_filter }})</p>
+    {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+      <a href="{{ url_for('main.index', filter_by = letter) }}">{{ letter }}</a> &middot; 
+      {% if loop.index % 8 == 0  %}<br>{% endif %}
+    {% endfor %}
+    <a href="/">Tutti</a>
+  </div>
+  <div>
+    {% if data.words_n_filter > 0 %}
+    
+      <!-- top pagination -->
+      <div>
+        {% include('main/pagination.html') %}
+      </div> 
+      
+      <!-- words list -->
+      <div>
+        {% for word in data.words_list %}
+           <a href="{{ url_for('main.view_word', rowid = word.rowid ) }}">
+             <div class="card">
+                <b>{{ word.lemma | upper }}</b>
+                {{ word.definition | truncate(150) }}
+              </div>
+            </a> 
+        {% endfor %}
+      </div>
+
+      <!-- bottom pagination -->
+      <div>
+        {% include('main/pagination.html') %}
+      </div>
+    {% else %}
+      <p>Non ci sono lemmi che soddisfano i criteri impostati.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Definizione del lemma</h3>
+  <div class="card">
+    <b>{{ data.lemma | upper }}</b>: {{ data.definition }}
+    <br><br>
+    <a href="{{ url_for('opera.update_word', rowid = data.rowid, next = request.url ) }}">Modifica</a>
+    <a href="{{ url_for('opera.delete_word', rowid = data.rowid, next = request.url ) }}" style="display:inline-block;margin-left:10px;color:red">Cancella</a>
+  </div>
+{% endblock content %}

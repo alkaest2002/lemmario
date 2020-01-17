@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <h3>Recupero lemma</h3>
+    <p>Inserisci link <b>{{ provider }}</b> del lemma che vuoi memorizzare.</p>
+    <form method="post" novalidate>
+      {{ form.link }}
+      {{ form.csrf_token }}     
+      <button type="submit" value="retrieve">Recupera lemma</button>
+    </form>
+  </div>
+{% endblock content %}

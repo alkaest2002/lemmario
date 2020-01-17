@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <h3>Inserimento lemma.</h3>
+    <form method="post">
+      {{ form.lemma }}
+      {{ form.definition }}
+      {{ form.csrf_token }}     
+      <button type="submit">Memorizza lemma</button>
+    </form>
+    <p class="lemma">{{ lemma }}</p>
+  </div>
+{% endblock content %}

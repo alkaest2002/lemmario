@@ -1,0 +1,9 @@
+{% block navmenu %}
+  <div style="float:right">
+    <a href="{{ url_for('main.index') }}">home //</a>
+      <a href="{{ url_for('main.retrieve_links') }}">ins //</a>
+      <a href="{{ url_for('opera.search_word') }}">cer //</a>
+      <a href="{{ url_for('user.logout') }}">out</a>
+  </div>
+  <div style="clear:both"></div>
+{% endblock navmenu %}

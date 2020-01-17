@@ -1,0 +1,129 @@
+/******************************************************************/
+/* HTML ELEMENTS                                                  */
+/******************************************************************/
+* {
+  
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  
+}
+
+body {
+  background-color: #ddd;
+  color: #333;
+  line-height: 1.5rem;
+  font-size: 20px;
+  padding: 2% 4%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h3 {
+  margin: 25px 0 50px 0;
+}
+
+nav {
+  margin-bottom: 50px;
+  font-family: "Inconsolata";
+}
+
+table{
+  width: 100%;
+  border: 1px solid #333;
+}
+
+th {
+  text-align: left;
+  padding: 5px;
+}
+
+td {
+  padding: 2px 5px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  padding-bottom: 5px;
+}
+
+input[type="text"], input[type="search"], input[type="tel"], input[type="url"],
+input[type="email"],input[type="password"], input[type="date"],
+input[type="month"], input[type="week"], input[type="time"],
+input[type="number"], input[type="color"], textarea {
+  border: 1px solid #9c9c9c;
+  border-radius: 3px;
+  font-size: 1em;
+  color: #555;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+button {
+  background-color: #2627c1;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: #2627c1;
+  font-size: .9em;
+}
+
+a {
+  color: #0a0abd;
+  text-decoration: none;
+}
+
+
+/******************************************************************/
+/* GENERAL ID AND CLASSES                                         */
+/******************************************************************/
+
+.card {
+  padding: 15px;
+  background-color: #fff;
+  margin-bottom: .5em;
+  margin-top: .2em;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px -1px #888;
+}
+
+a .card {
+  color: #555;
+}
+
+/******************************************************************/
+/* SPECIFIC ID AND CLASSES                                        */
+/******************************************************************/
+#flash {
+    padding: 25px 0;
+    color: indianred;
+}
+
+#flash ul {
+  padding-left: 10px;
+}
+
+.pagination {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: .8em;
+}
+
+footer > div {
+  font-size: .8em ! important;
+  margin-top: 25px;
+}
+
+#searchlist li {
+  padding-bottom: 25px;
+}
+
+#searchlist .highlight{
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+  padding-left:2px;
+  padding-right: 2px;
+}

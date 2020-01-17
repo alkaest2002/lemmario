@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <h3>Cerca lemma</h3>
+    <p>Verranno mostrati al massimo 50 lemmi, in ordine di rilevanza.</p>
+    <form method="post">
+      {{ form.search_term }}
+      {{ form.csrf_token }}     
+      <button type="submit">Cerca lemma</button>
+    </form>
+  </div>
+  <div>
+  {% if words_list %}
+    <div style="margin-top:50px">
+      <h4>Elenco dei lemmi trovati</h4>
+      <ul id="searchlist">
+        {% for word in words_list %}
+          <li><b>{{ word.lemma | upper }}</b> {{ word.definition | safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock content %}

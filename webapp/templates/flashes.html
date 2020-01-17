@@ -1,0 +1,13 @@
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div>
+      <div id="flash"
+        <ul class="messages">
+        {% for message in messages %}
+          <li class="message">{{ message | safe }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+{% endwith %}

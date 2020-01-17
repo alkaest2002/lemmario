@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <h3>Inserimento del lemma </h3>
+    <p>Scegli un metodo di inserimento. Usa i vocabolari on-line oppure procedi all'inserimento manuale del lemma.</p>
+    <ul>
+      <li><a href="{{ url_for('opera.retrieve_word_treccani') }}">tramite vocabolario Treccani</a></li>
+      <li><a href="{{ url_for('opera.retrieve_word_demauro') }}">tramite vocabolario De Mauro</a></li>
+      <li><a href="{{ url_for('opera.retrieve_word_olivetti') }}">tramite vocabolario Olivetti</a></li>
+    </ul>
+    <ul>
+      <li><a href="{{ url_for('opera.add_word') }}">Inserimento manuale del lemma</a></li>
+    </ul>
+  </div>
+{% endblock content %}
