@@ -1,19 +1,21 @@
 <div class="pagination">
-  <div>
+  <div style="float:right;" >
     <span>Ordina per: </span>
-    <a href="{{ url_for('main.index', offset_field = 'lemma') }}">Lemma</a>
-    <a href="{{ url_for('main.index', offset_field = 'visited') }}">Data</a>
+    <a href="{{ url_for('main.list', offset_field = 'lemma', order_dir = 'ASC') }}">L +</a>
+    <a href="{{ url_for('main.list', offset_field = 'lemma', order_dir = 'DESC') }}">L -</a>
+    <a href="{{ url_for('main.list', offset_field = 'visited', order_dir = 'ASC') }}">D +</a>
+    <a href="{{ url_for('main.list', offset_field = 'visited', order_dir = 'DESC') }}">D -</a>
   </div>
-  <div>
+  <div style"float:left;">
     {% if data.is_first_page %}
-      <span>Precedente</span>
+      <span>Prec</span>&nbsp;
     {% else %}
-      <a href="{{ data.prev_url }}">Precedente</a>
+      <a href="{{ data.prev_url }}">Prec</a>&nbsp;
     {% endif %}
     {% if data.is_last_page %}
-      <span>Seguente</span>
+      <span>Succ</span>&nbsp;
     {% else %}
-      <a href="{{ data.next_url }}">Seguente</a>
+      <a href="{{ data.next_url }}">Succ</a>
     {% endif  %}
   </div>
  </div>
