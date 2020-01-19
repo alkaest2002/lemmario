@@ -87,6 +87,7 @@ a {
   margin-top: .2em;
   border-radius: 3px;
   box-shadow: 1px 1px 5px -1px #888;
+  color: #555;
 }
 
 a .card {
