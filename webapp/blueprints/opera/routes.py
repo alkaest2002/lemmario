@@ -211,8 +211,8 @@ def update_word(rowid):
       
       # write data to sqlite
       cur = get_db().cursor()
-      cur.execute("UPDATE lemmi SET lemma = ?, letter = ?, cat = ?, definition = ?, modified = ?, visited = ? WHERE rowid = ?", \
-          [ data["lemma"], data["lemma"][0].upper(),"", data["definition"], timestamp , timestamp, rowid  ] )
+      cur.execute("UPDATE lemmi SET lemma = ?, definition = ?, modified = ? WHERE rowid = ?", \
+          [ data["lemma"], data["definition"], timestamp , rowid  ] )
       cur.execute("UPDATE lemmi_search SET lemma = ?, definition = ? WHERE rowid = ?", [ data["lemma"], data["definition"], rowid ])
       get_db().commit()
 
