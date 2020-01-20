@@ -99,7 +99,7 @@ def list_lemma(offset_field, order_dir):
 
   # fetch data from db
   data["words_n_all"]    = int(query_db(sql[0][0], sql[0][1], one = True)["c"]) 
-  data["words_n_filter"] = int(query_db(sql[0][0], sql[0][1], one = True)["c"])
+  data["words_n_filter"] = int(query_db(sql[1][0], sql[1][1], one = True)["c"])
   
   if order_dir == "ASC" and offset_dir == "next": data["words_list"]  = query_db(sql[-2][0], sql[-2][1])
   if order_dir == "ASC" and offset_dir == "prev": data["words_list"]  = query_db(sql[-1][0], sql[-1][1])
