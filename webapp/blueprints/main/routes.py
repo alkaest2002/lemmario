@@ -8,7 +8,7 @@ from . import bp_main
 # ################################################################################
 # GLOBAL CONSTANTS AND VARS
 # ################################################################################
-PER_PAGE = 4
+PER_PAGE = 10
 
  # init data object
 data = {
@@ -28,7 +28,6 @@ data = {
   "order_dir"      : None
 }
 
-
 # ################################################################################
 # ROUTES 
 # ################################################################################
@@ -39,29 +38,32 @@ data = {
 @bp_main.route("/")
 @login_required
 def index():
+    
     # redirect
     return redirect(url_for("main.list_lemma", offset_field = "lemma", order_dir = "ASC"))
 
 # --------------------------------------------------------------------------------
-# list all words with offset and order
+# list lemma
 # --------------------------------------------------------------------------------
-@bp_main.route("/list/offset_field/<offset_field>/order_dir/<order_dir>")
+@bp_main.route("/list")
 @login_required
-def list_lemma(offset_field, order_dir):
+def list_lemma():
 
   # cache params
+  offset_field = request.args.get("offset_field", 'lemma')
   offset_value = request.args.get("offset_value", None)
+  offset_dir   = request.args.get("offset_dir", "next")
   filter_field = request.args.get("filter_field", None)
   filter_value = request.args.get("filter_value", None)
-  offset_dir = request.args.get("offset_dir", "next")
+  order_dir = request.args.get("order_dir", "next")
 
-  # sanity checks
+  # sanity check on params
   if any((
     offset_field not in ("lemma","visited"),
     offset_value and not re.sub("\s|'|\-","", offset_value).isalnum(),  
+    offset_dir not in ("prev", "next"),
     filter_field and filter_field not in ("lemma",),
     filter_value and not re.sub("\s|'|\-","", filter_value).isalnum(),
-    offset_dir not in ("prev", "next"),
     order_dir not in ("ASC", "DESC")
   )): abort(400)
 
@@ -69,10 +71,9 @@ def list_lemma(offset_field, order_dir):
   if order_dir == "ASC":
     operator = ">" if offset_dir == "next" else "<" 
     if not offset_value: offset_value = "0"
-
-  if order_dir == "DESC": 
+  else:
     operator = "<" if offset_dir == "next" else ">"
-    if not offset_value: offset_value = "zz"
+    if not offset_value: offset_value = "{"
 
   # cache fixed sql queries with parameters
   sql_all = [
@@ -94,7 +95,7 @@ def list_lemma(offset_field, order_dir):
     ]
   ]
 
-  # choose sql queeries
+  # choose sql queries
   sql = sql_all[0] if not filter_value else sql_all[1]
 
   # fetch data from db
@@ -106,12 +107,12 @@ def list_lemma(offset_field, order_dir):
   if order_dir == "DESC" and offset_dir == "next": data["words_list"] = query_db(sql[-1][0], sql[-1][1])
   if order_dir == "DESC" and offset_dir == "prev": data["words_list"] = query_db(sql[-2][0], sql[-2][1])
 
-  # reverse words if necessary
-  if offset_dir == "prev":
-    data["words_list"] = data["words_list"][::-1]
-
   # if there are words
   if data["words_list"]:
+    
+    # reverse words if necessary
+    if offset_dir == "prev":
+      data["words_list"] = data["words_list"][::-1]
      
     # add order_dir specific pagination data
     if order_dir == "ASC":
