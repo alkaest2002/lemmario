@@ -33,6 +33,9 @@ class AddWordForm(FlaskForm):
     validators = [
       DataRequired(message="Il lemma è obbligatorio"),
     ],
+    filters = [
+      lambda x: x.lower()
+    ],
     render_kw = {
       "style": "width:100%", 
     }
