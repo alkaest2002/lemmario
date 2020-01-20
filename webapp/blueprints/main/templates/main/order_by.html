@@ -1,9 +1,9 @@
 <div class="order-by">
   <div>
     <span>Ordina per: </span>
-    <a href="{{ url_for('main.list_lemma', offset_field = 'lemma',   order_dir = 'ASC',  filter_field = data.filter_field, filter_value = data.filter_value) }}">L +</a>
-    <a href="{{ url_for('main.list_lemma', offset_field = 'lemma',   order_dir = 'DESC', filter_field = data.filter_field, filter_value = data.filter_value) }}">L -</a>
-    <a href="{{ url_for('main.list_lemma', offset_field = 'visited', order_dir = 'ASC',  filter_field = data.filter_field, filter_value = data.filter_value) }}">D +</a>
-    <a href="{{ url_for('main.list_lemma', offset_field = 'visited', order_dir = 'DESC', filter_field = data.filter_field, filter_value = data.filter_value) }}">D -</a>
+    <a href="{{ url_for('main.list_lemma', offset_field = 'lemma',   order_dir = 'ASC',  filter_field = data.filter_field, filter_value = data.filter_value) }}">L&#8593;</a>&nbsp;
+    <a href="{{ url_for('main.list_lemma', offset_field = 'lemma',   order_dir = 'DESC', filter_field = data.filter_field, filter_value = data.filter_value) }}">L&#8595;</a>&nbsp;
+    <a href="{{ url_for('main.list_lemma', offset_field = 'visited', order_dir = 'ASC',  filter_field = data.filter_field, filter_value = data.filter_value) }}">D&#8593;</a>&nbsp;
+    <a href="{{ url_for('main.list_lemma', offset_field = 'visited', order_dir = 'DESC', filter_field = data.filter_field, filter_value = data.filter_value) }}">D&#8595;</a>
   </div>
  </div>
