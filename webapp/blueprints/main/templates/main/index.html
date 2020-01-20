@@ -6,7 +6,7 @@
   <div id="letters" style="margin-bottom:50px;">
     <p>Filtra lemmi per lettera ({{ data.words_n_filter }})</p>
     {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
-      <a href="{{ url_for('main.index', filter_by = letter) }}">{{ letter }}</a> &middot; 
+      <a href="{{ url_for('main.list_lemma', filter_field = 'lemma', filter_value = letter, offset_field = 'lemma', order_dir = 'ASC') }}">{{ letter }}</a> &middot; 
       {% if loop.index % 8 == 0  %}<br>{% endif %}
     {% endfor %}
     <a href="/">Tutti</a>
@@ -16,7 +16,7 @@
     
       <!-- top pagination -->
       <div>
-        {% include('main/pagination.html') %}
+        {% include('main/order_by.html') %}
       </div> 
       
       <!-- words list -->

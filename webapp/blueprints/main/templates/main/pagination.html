@@ -1,21 +1,14 @@
 <div class="pagination">
-  <div style="float:right;" >
-    <span>Ordina per: </span>
-    <a href="{{ url_for('main.list', offset_field = 'lemma', order_dir = 'ASC') }}">L +</a>
-    <a href="{{ url_for('main.list', offset_field = 'lemma', order_dir = 'DESC') }}">L -</a>
-    <a href="{{ url_for('main.list', offset_field = 'visited', order_dir = 'ASC') }}">D +</a>
-    <a href="{{ url_for('main.list', offset_field = 'visited', order_dir = 'DESC') }}">D -</a>
-  </div>
-  <div style"float:left;">
+  <div>
     {% if data.is_first_page %}
       <span>Prec</span>&nbsp;
     {% else %}
-      <a href="{{ data.prev_url }}">Prec</a>&nbsp;
+      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, order_dir = data.order_dir, offset_value = data.prev_rec, offset_dir = 'prev', filter_field = data.filter_field, filter_value = data.filter_value ) }}">Prec</a>&nbsp;
     {% endif %}
     {% if data.is_last_page %}
       <span>Succ</span>&nbsp;
     {% else %}
-      <a href="{{ data.next_url }}">Succ</a>
+      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, order_dir = data.order_dir, offset_value = data.next_rec, offset_dir = 'next', filter_field = data.filter_field, filter_value = data.filter_value) }}">Succ</a>
     {% endif  %}
   </div>
  </div>
