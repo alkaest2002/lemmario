@@ -8,7 +8,7 @@ from . import bp_main
 # ################################################################################
 # GLOBAL CONSTANTS AND VARS
 # ################################################################################
-PER_PAGE = 10
+PER_PAGE = 4
 
  # init data object
 data = {
@@ -25,6 +25,7 @@ data = {
   "offset_dir"     : None,
   "filter_field"   : None,
   "filter_value"   : None,
+  "order_field"    : None,
   "order_dir"      : None
 }
 
@@ -40,7 +41,7 @@ data = {
 def index():
     
     # redirect
-    return redirect(url_for("main.list_lemma", offset_field = "lemma", order_dir = "ASC"))
+    return redirect(url_for("main.list_lemma", order_field = "lemma", order_dir = "ASC"))
 
 # --------------------------------------------------------------------------------
 # list lemma
@@ -55,6 +56,7 @@ def list_lemma():
   offset_dir   = request.args.get("offset_dir", "next")
   filter_field = request.args.get("filter_field", None)
   filter_value = request.args.get("filter_value", None)
+  order_field = request.args.get("order_field", 'lemma')
   order_dir = request.args.get("order_dir", "next")
 
   # sanity check on params
@@ -64,7 +66,8 @@ def list_lemma():
     offset_dir not in ("prev", "next"),
     filter_field and filter_field not in ("lemma",),
     filter_value and not re.sub("\s|'|\-","", filter_value).isalnum(),
-    order_dir not in ("ASC", "DESC")
+    order_field not in ("lemma","visited"),
+    order_dir not in ("ASC", "DESC"),
   )): abort(400)
 
   # set operator and offset_value
@@ -82,16 +85,16 @@ def list_lemma():
         (f"SELECT COUNT(*) as c FROM lemmi", []),
         (f"SELECT * FROM lemmi ORDER BY {offset_field} ASC LIMIT 1", []),
         (f"SELECT * FROM lemmi ORDER BY {offset_field} DESC LIMIT 1", []),
-        (f"SELECT ROWID,* FROM lemmi WHERE {offset_field} {operator} ? ORDER BY {offset_field} ASC LIMIT ?", [ offset_value, PER_PAGE ]),
-        (f"SELECT ROWID,* FROM lemmi WHERE {offset_field} {operator} ? ORDER BY {offset_field} DESC LIMIT ?", [ offset_value, PER_PAGE ]),
+        (f"SELECT ROWID,* FROM lemmi WHERE {offset_field} {operator} ? ORDER BY {order_field} ASC LIMIT ?", [ offset_value, PER_PAGE ]),
+        (f"SELECT ROWID,* FROM lemmi WHERE {offset_field} {operator} ? ORDER BY {order_field} DESC LIMIT ?", [ offset_value, PER_PAGE ]),
     ],
     [
         (f"SELECT COUNT(*) as c FROM lemmi", []),
         (f"SELECT COUNT(*) as c FROM lemmi WHERE {filter_field} LIKE ?", [ f"{filter_value}%" ]),
-        (f"SELECT * FROM lemmi WHERE {filter_field} LIKE ? ORDER BY {offset_field} ASC LIMIT 1", [ f"{filter_value}%" ]),
-        (f"SELECT * FROM lemmi WHERE {filter_field} LIKE ? ORDER BY {offset_field} DESC LIMIT 1", [ f"{filter_value}%" ]),
-        (f"SELECT ROWID,* FROM lemmi WHERE {filter_field} LIKE ? AND {offset_field} {operator} ? ORDER BY {offset_field} ASC LIMIT ?", [ f"{filter_value}%", offset_value, PER_PAGE ]),
-        (f"SELECT ROWID,* FROM lemmi WHERE {filter_field} LIKE ? AND {offset_field} {operator} ? ORDER BY {offset_field} DESC LIMIT ?", [ f"{filter_value}%", offset_value, PER_PAGE ]),
+        (f"SELECT * FROM lemmi WHERE {filter_field} LIKE ? ORDER BY {order_field} ASC LIMIT 1", [ f"{filter_value}%" ]),
+        (f"SELECT * FROM lemmi WHERE {filter_field} LIKE ? ORDER BY {order_field} DESC LIMIT 1", [ f"{filter_value}%" ]),
+        (f"SELECT ROWID,* FROM lemmi WHERE {filter_field} LIKE ? AND {offset_field} {operator} ? ORDER BY {order_field} ASC LIMIT ?", [ f"{filter_value}%", offset_value, PER_PAGE ]),
+        (f"SELECT ROWID,* FROM lemmi WHERE {filter_field} LIKE ? AND {offset_field} {operator} ? ORDER BY {order_field} DESC LIMIT ?", [ f"{filter_value}%", offset_value, PER_PAGE ]),
     ]
   ]
 
@@ -122,17 +125,20 @@ def list_lemma():
         data["first_rec"] = query_db(sql[3][0], sql[3][1], one = True)[offset_field]
         data["last_rec"]  = query_db(sql[2][0], sql[2][1], one = True)[offset_field]
 
-    # add other pagination data
+    # add other pagination data relative to words list
     data["prev_rec"]      = data["words_list"][0][offset_field]
     data["next_rec"]      = data["words_list"][-1][offset_field]
-    data["is_first_page"] = data["first_rec"] == data["prev_rec"]
-    data["is_last_page"]  = data["last_rec"] == data["next_rec"]
-    data["offset_field"]  = offset_field
-    data["offset_value"]  = offset_value
-    data["offset_dir"]    = offset_dir
-    data["filter_field"]  = filter_field
-    data["filter_value"]  = filter_value
-    data["order_dir"]     = order_dir
+    
+  # add final pagination data
+  data["is_first_page"] = data["first_rec"] == data["prev_rec"]
+  data["is_last_page"]  = data["last_rec"] == data["next_rec"]
+  data["offset_field"]  = offset_field
+  data["offset_value"]  = offset_value
+  data["offset_dir"]    = offset_dir
+  data["filter_field"]  = filter_field
+  data["filter_value"]  = filter_value
+  data["order_field"]   = order_field
+  data["order_dir"]     = order_dir
   
   # render view
   return render_template("main/index.html", data = data)

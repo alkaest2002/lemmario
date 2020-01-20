@@ -3,12 +3,12 @@
     {% if data.is_first_page %}
       <span>Prec</span>&nbsp;
     {% else %}
-      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, order_dir = data.order_dir, offset_value = data.prev_rec, offset_dir = 'prev', filter_field = data.filter_field, filter_value = data.filter_value ) }}">Prec</a>&nbsp;
+      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, offset_value = data.prev_rec, offset_dir = 'prev', filter_field = data.filter_field, filter_value = data.filter_value, order_field = data.order_field,  order_dir = data.order_dir  ) }}">Prec</a>&nbsp;
     {% endif %}
     {% if data.is_last_page %}
       <span>Succ</span>&nbsp;
     {% else %}
-      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, order_dir = data.order_dir, offset_value = data.next_rec, offset_dir = 'next', filter_field = data.filter_field, filter_value = data.filter_value) }}">Succ</a>
+      <a href="{{ url_for('main.list_lemma', offset_field = data.offset_field, offset_value = data.next_rec, offset_dir = 'next', filter_field = data.filter_field, filter_value = data.filter_value, order_field = data.order_field, order_dir = data.order_dir) }}">Succ</a>
     {% endif  %}
   </div>
  </div>
