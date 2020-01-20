@@ -8,11 +8,11 @@
 }
 
 body {
-  background-color: #ddd;
-  color: #333;
+  background-color: #e8e5db;
+  color: #083755;
   line-height: 1.5rem;
   font-size: 20px;
-  padding: 2% 4%;
+  padding: 4%;
   max-width: 960px;
   margin: 0 auto;
 }
@@ -61,17 +61,17 @@ input[type="number"], input[type="color"], textarea {
 }
 
 button {
-  background-color: #2627c1;
+  background-color: #2c8fa2;
   color: #fff;
   padding: 10px;
   border-radius: 3px;
   border: 1px solid;
-  border-color: #2627c1;
+  border-color: #006b80;
   font-size: .9em;
 }
 
 a {
-  color: #0a0abd;
+  color: #0e879e;
   text-decoration: none;
 }
 
@@ -87,7 +87,6 @@ a {
   margin-top: .2em;
   border-radius: 3px;
   box-shadow: 1px 1px 5px -1px #888;
-  color: #555;
 }
 
 a .card {
@@ -106,7 +105,7 @@ a .card {
   padding-left: 10px;
 }
 
-.pagination {
+.pagination, .order-by {
   margin-top: 15px;
   margin-bottom: 15px;
   font-size: .8em;
