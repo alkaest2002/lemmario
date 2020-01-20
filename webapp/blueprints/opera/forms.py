@@ -46,7 +46,7 @@ class AddWordForm(FlaskForm):
     ],
     render_kw = {
       "rows": 15,
-      "style": "width:100%", 
+      "style": "width:100%;resize:vertical;", 
     }
   )
 
